@@ -48,7 +48,7 @@ export const useEmailStore = create<EmailStore>((set, get) => ({
       emailList: state.emailList.map((e) =>
         e.id === email.id ? { ...e, isRead: true } : e,
       ),
-      selectedEmail: { ...email, isRead: true },
+      // selectedEmail: { ...email, isRead: true },
       loading: false,
     }));
   },
@@ -74,7 +74,10 @@ export const useEmailStore = create<EmailStore>((set, get) => ({
   fetchEmailBody: async (email: Email) => {
     set({ loading: true });
     const body = await getEmail(parseInt(email.id));
-    set({ selectedEmail: { ...email, body: body.body }, loading: false });
+    set((state) => ({
+      selectedEmail: { ...email, body: body.body, isRead: true },
+      loading: false,
+    }));
   },
 
   filteredEmails: () => {

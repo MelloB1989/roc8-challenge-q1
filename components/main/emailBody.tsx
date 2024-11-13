@@ -51,11 +51,14 @@ export default function EmailBody({
             </div>
           ) : (
             <div className="space-y-4">
-              <p className="text-sm">
-                {selectedEmail.body
-                  ? selectedEmail.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
-                  : "No content"}
-              </p>
+              <p
+                className="text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: selectedEmail.body
+                    ? selectedEmail.body.replace(/(?:\r\n|\r|\n)/g, "<br />")
+                    : "No content",
+                }}
+              />
             </div>
           )}
         </>
